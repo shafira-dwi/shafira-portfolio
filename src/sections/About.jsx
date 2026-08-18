@@ -12,7 +12,7 @@ const About = () => {
 
           {/* Photo Placeholder */}
           <div className="relative z-10 flex h-[380px] w-[280px] items-center justify-center overflow-hidden rounded-[2rem] border border-[#8b6f47]/20 bg-white shadow-sm md:h-[480px] md:w-[360px]">
-            <img src={profileImage} className="h-full w-full object-cover" />
+            <img src={profileImage} alt="Shafira Dwi" className="h-[90%] w-[90%] rounded-[1.7rem] object-contain" />
           </div>
         </motion.div>
 
@@ -22,7 +22,7 @@ const About = () => {
           <p className="mb-6 text-xs font-medium uppercase tracking-[0.3em] text-[#8b6f47]">About Me</p>
 
           {/* Heading */}
-          <h2 className="max-w-xl text-4xl font-extrabold leading-[0.95] tracking-tight md:text-5xl lg:text-6xl">
+          <h2 className="max-w-xl text-5xl font-extrabold leading-[0.95] tracking-tight md:text-6xl lg:text-6xl">
             Shafira Dwi
             <br />
             Nuraulia
