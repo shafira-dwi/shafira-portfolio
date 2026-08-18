@@ -9,14 +9,6 @@ function MailIcon() {
   );
 }
 
-function PhoneIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.63a2 2 0 0 1-.45 2.11L8 9.73a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.85.29 1.73.5 2.63.62A2 2 0 0 1 22 16.92Z" />
-    </svg>
-  );
-}
-
 function Contact() {
   const [formData, setFormData] = useState({
     name: "",
@@ -24,6 +16,9 @@ function Contact() {
     phone: "",
     message: "",
   });
+
+  const [status, setStatus] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -34,14 +29,42 @@ function Contact() {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const subject = encodeURIComponent(`Portfolio Contact - ${formData.name}`);
+    setIsSubmitting(true);
+    setStatus("");
 
-    const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone || "-"}\n\nMessage:\n${formData.message}`);
+    try {
+      const response = await fetch("http://localhost:5000/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    window.location.href = `mailto:YOUR_EMAIL@example.com?subject=${subject}&body=${body}`;
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to send message.");
+      }
+
+      setStatus("Message sent successfully. Thank you for reaching out.");
+
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Contact form error:", error);
+
+      setStatus("Something went wrong. Please try again or contact me directly by email.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -52,7 +75,7 @@ function Contact() {
           <div>
             <p className="mb-4 text-xs font-medium uppercase tracking-[0.3em] text-[#8b6f47]">Contact</p>
 
-            <h2 className="max-w-md text-4xl font-bold leading-tight tracking-tight md:text-5xl">
+            <h2 className="text-4xl font-extrabold leading-[0.9] tracking-tight md:text-6xl">
               LET&apos;S WORK
               <br />
               TOGETHER.
@@ -60,23 +83,36 @@ function Contact() {
 
             <p className="mt-6 max-w-md text-sm leading-7 text-zinc-600">Interested in working together or have an opportunity in mind? Feel free to get in touch.</p>
 
-            <div className="mt-9 space-y-4">
+            <div className="mt-9 space-y-3">
               {/* Email */}
-              <a href="mailto:YOUR_EMAIL@example.com" className="flex items-center gap-3 text-sm text-zinc-700 transition-colors hover:text-[#8b6f47]">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-200 bg-white">
+              <a href="mailto:shafiradwinuraulia@gmail.com" className="group flex items-center gap-3 text-sm text-zinc-700 transition-colors hover:text-[#8b6f47]">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-200 bg-white transition-colors group-hover:border-[#8b6f47]/30">
                   <MailIcon />
                 </span>
 
-                <span>YOUR_EMAIL@example.com</span>
+                <span>shafiradwinuraulia@gmail.com</span>
               </a>
 
-              {/* Phone */}
-              <a href="https://wa.me/YOUR_PHONE_NUMBER" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm text-zinc-700 transition-colors hover:text-[#8b6f47]">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-200 bg-white">
-                  <PhoneIcon />
+              {/* LinkedIn */}
+              <a href="https://www.linkedin.com/in/shafira-dwi-nuraulia-92aa95323/" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 text-sm text-zinc-700 transition-colors hover:text-[#8b6f47]">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-200 bg-white transition-colors group-hover:border-[#8b6f47]/30">
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5" aria-hidden="true">
+                    <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.67H9.35V8.99h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.26 2.37 4.26 5.46v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM3.56 20.45h3.57V8.99H3.56v11.46Z" />
+                  </svg>
                 </span>
 
-                <span>+62 xxx-xxxx-xxxx</span>
+                <span>LinkedIn</span>
+              </a>
+
+              {/* GitHub */}
+              <a href="https://github.com/shafira-dwi" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 text-sm text-zinc-700 transition-colors hover:text-[#8b6f47]">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-200 bg-white transition-colors group-hover:border-[#8b6f47]/30">
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5" aria-hidden="true">
+                    <path d="M12 2C6.48 2 2 6.58 2 12.24c0 4.52 2.87 8.36 6.84 9.72.5.1.68-.22.68-.49v-1.72c-2.78.62-3.37-1.38-3.37-1.38-.46-1.2-1.12-1.52-1.12-1.52-.91-.64.07-.63.07-.63 1 .08 1.53 1.06 1.53 1.06.9 1.58 2.36 1.12 2.94.86.09-.67.35-1.12.64-1.38-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.2 9.2 0 0 1 12 7.14c.85 0 1.7.12 2.5.36 1.9-1.33 2.74-1.05 2.74-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.05.36.32.68.94.68 1.9v2.81c0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.24C22 6.58 17.52 2 12 2Z" />
+                  </svg>
+                </span>
+
+                <span>GitHub</span>
               </a>
             </div>
           </div>
@@ -157,9 +193,16 @@ function Contact() {
               />
             </div>
 
+            {/* Status */}
+            {status && <p className={`mt-4 text-sm ${status.startsWith("Message sent") ? "text-green-600" : "text-red-600"}`}>{status}</p>}
+
             {/* Submit */}
-            <button type="submit" className="mt-6 inline-flex items-center rounded-xl bg-zinc-900 px-5 py-3 text-sm font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#8b6f47]">
-              Send Message
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="mt-6 inline-flex items-center rounded-xl bg-zinc-900 px-5 py-3 text-sm font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#8b6f47] disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {isSubmitting ? "Sending..." : "Send Message"}
             </button>
           </form>
         </div>

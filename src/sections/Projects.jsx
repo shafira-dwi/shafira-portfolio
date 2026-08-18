@@ -5,15 +5,6 @@ import WorkTrackDetail from "../assets/projects/WorkTrack.jpeg";
 
 const projects = [
   {
-    id: "gym-management",
-    title: "Gym Management System",
-    description: "A backend-focused management system for managing members, memberships, trainers, payments, and authentication.",
-    image: "/projects/gym-management.png",
-    category: "Backend Development",
-    technologies: ["NestJS", "PostgreSQL", "TypeScript", "TypeORM", "JWT"],
-    details: "A gym management system designed to handle core gym operations, including member management, personal trainers, memberships, authentication, and payment history.",
-  },
-  {
     id: "worktrack",
     title: "WorkTrack",
     description: "A web-based staff attendance system for managing employee attendance and daily work records.",
@@ -21,16 +12,16 @@ const projects = [
     detailImage: WorkTrackDetail,
     category: "Web Application",
     details: "A web-based staff attendance system built to manage employee attendance and daily work records.",
-    technologies: ["Laravel", "PHP", "MySQL", "Tailwind CSS"],
+    technologies: ["Laravel", "PHP", "MySQL", "Blade", "JavaScript", "Bootstrap", "HTML", "CSS"],
   },
   {
-    id: "restaurant",
-    title: "Restaurant Web App",
-    description: "A restaurant application for menu management, ordering, payment integration, and location services.",
-    image: "/projects/restaurant.png",
-    category: "Full-stack Collaboration",
-    technologies: ["NestJS", "PostgreSQL", "React", "TypeScript"],
-    details: "A collaborative restaurant web application focused on menu management, ordering, payment integration, and location-based services.",
+    id: "gym-management",
+    title: "Gym Management System",
+    description: "A backend-focused management system for managing members, memberships, trainers, payments, and authentication.",
+    image: "/projects/gym-management.png",
+    category: "Backend Development",
+    technologies: ["NestJS", "PostgreSQL", "TypeScript", "TypeORM", "JWT"],
+    details: "A gym management system designed to handle core gym operations, including member management, personal trainers, memberships, authentication, and payment history.",
   },
 ];
 
@@ -56,7 +47,7 @@ function Projects() {
           <div className="mb-12">
             <p className="mb-4 text-xs font-medium uppercase tracking-[0.3em] text-[#8b6f47]">Selected Work</p>
 
-            <h2 className="text-5xl font-extrabold leading-[0.9] tracking-tight md:text-6xl">PROJECTS I&apos;VE BUILT.</h2>
+            <h2 className="text-4xl font-extrabold leading-[0.9] tracking-tight md:text-6xl">PROJECTS I&apos;VE BUILT.</h2>
 
             <p className="mt-7 max-w-xl text-sm leading-7 text-zinc-600 md:text-base">A collection of projects I&apos;ve built while working with backend systems, APIs, databases, and real-world applications.</p>
           </div>

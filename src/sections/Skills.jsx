@@ -107,9 +107,8 @@ const Skills = () => {
           <h2 className="text-5xl font-extrabold leading-[0.9] tracking-tight md:text-7xl">
             WHAT I
             <br />
-            WORK
+            WORK WITH.
             <br />
-            WITH.
           </h2>
 
           <p className="mt-8 max-w-md text-sm leading-7 text-zinc-600 md:text-base">Technologies and tools I use to build backend systems, APIs, and database-driven applications.</p>
