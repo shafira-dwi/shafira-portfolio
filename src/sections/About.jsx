@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import profileImage from "../assets/profile.jpeg";
+import profileImage from "../assets/Profile.jpeg";
 
 const About = () => {
   return (
