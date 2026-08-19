@@ -28,6 +28,10 @@ export default async function handler(req, res) {
       },
     });
 
+    console.log("MAIL_USER exists:", !!process.env.MAIL_USER);
+    console.log("MAIL_PASSWORD exists:", !!process.env.MAIL_PASSWORD);
+    console.log("MAIL_TO exists:", !!process.env.MAIL_TO);
+
     await transporter.sendMail({
       from: process.env.MAIL_USER,
       to: process.env.MAIL_TO,
