@@ -2,6 +2,8 @@ import { useState } from "react";
 import ProjectDetail from "./ProjectDetail";
 import WorktrackDashboard from "../assets/projects/WorkTrackDashboard.jpeg";
 import WorkTrackDetail from "../assets/projects/WorkTrack.jpeg";
+import GymProDashboard from "../assets/projects/GymProDashboard.jpeg";
+import GymProDetail from "../assets/projects/GymPro.jpeg";
 
 const projects = [
   {
@@ -18,9 +20,10 @@ const projects = [
     id: "gym-management",
     title: "Gym Management System",
     description: "A backend-focused management system for managing members, memberships, trainers, payments, and authentication.",
-    image: "/projects/gym-management.png",
+    image: GymProDashboard,
+    detailImage: GymProDetail,
     category: "Backend Development",
-    technologies: ["NestJS", "PostgreSQL", "TypeScript", "TypeORM", "JWT"],
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "NestJS", "PostgreSQL", "TypeORM", "JWT", "Git"],
     details: "A gym management system designed to handle core gym operations, including member management, personal trainers, memberships, authentication, and payment history.",
   },
 ];
