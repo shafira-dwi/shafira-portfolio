@@ -32,16 +32,18 @@ function Contact() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    setIsSubmitting(true);
-    setStatus("");
-
     try {
-      const response = await fetch("http://localhost:5000/api/contact", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim() || "-",
+          message: formData.message.trim(),
+        }),
       });
 
       const data = await response.json();
@@ -50,7 +52,7 @@ function Contact() {
         throw new Error(data.message || "Failed to send message.");
       }
 
-      setStatus("Message sent successfully. Thank you for reaching out.");
+      alert("Message sent successfully!");
 
       setFormData({
         name: "",
@@ -59,11 +61,8 @@ function Contact() {
         message: "",
       });
     } catch (error) {
-      console.error("Contact form error:", error);
-
-      setStatus("Something went wrong. Please try again or contact me directly by email.");
-    } finally {
-      setIsSubmitting(false);
+      console.error(error);
+      alert("Failed to send message. Please try again.");
     }
   };
 
