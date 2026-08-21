@@ -44,7 +44,7 @@ function Projects() {
 
   return (
     <>
-      <section id="projects" className="bg-[#f8f7f4] px-6 py-20 text-zinc-900 md:px-12">
+      <section id="projects" className="bg-[#f8f7f4] px-6 py-24 text-zinc-900 md:px-12 md:py-32">
         <div className="mx-auto max-w-7xl">
           {/* Section Header */}
           <div className="mb-12">
