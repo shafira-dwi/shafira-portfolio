@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X } from "lucide-react";
 
 const navItems = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
+  { label: "Experience", href: "#experience" },
   { label: "Skills", href: "#skills" },
+  { label: "Education", href: "#education" },
   { label: "Projects", href: "#projects" },
   { label: "Contact Me", href: "#contact" },
 ];
@@ -14,14 +16,40 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
-  const handleNavigation = (section) => {
-    setActiveSection(section);
+  // Track which section is currently visible
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 180;
+
+      let currentSection = "home";
+
+      navItems.forEach((item) => {
+        const section = document.getElementById(item.href.replace("#", ""));
+
+        if (section && section.offsetTop <= scrollPosition) {
+          currentSection = section.id;
+        }
+      });
+
+      setActiveSection(currentSection);
+    };
+
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const handleNavigation = () => {
     setIsOpen(false);
   };
 
   return (
-    <header className="fixed top-0 left-0 z-30 flex w-full justify-center px-3 py-2">
-      <nav className="relative flex w-full max-w-[500px] items-center rounded-full bg-white px-5 py-6 shadow-lg">
+    <header className="fixed left-0 top-0 z-30 flex w-full justify-center px-3 py-2">
+      <nav className="relative flex w-full max-w-[700px] items-center rounded-full bg-white px-5 py-6 shadow-lg">
         {/* Desktop Navigation */}
         <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex">
           {navItems.map((item, index) => {
@@ -32,8 +60,8 @@ function Navbar() {
               <motion.a
                 key={item.href}
                 href={item.href}
-                onClick={() => handleNavigation(section)}
-                className="relative whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium"
+                onClick={handleNavigation}
+                className="relative whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -94,7 +122,7 @@ function Navbar() {
                   <motion.a
                     key={item.href}
                     href={item.href}
-                    onClick={() => handleNavigation(section)}
+                    onClick={handleNavigation}
                     className={`rounded-full px-5 py-3 text-base font-medium ${isActive ? "bg-zinc-900 text-white" : "text-zinc-900"}`}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
